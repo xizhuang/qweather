@@ -1,0 +1,93 @@
+
+<view class="p-24">
+  <!-- 顶部查询卡片 -->
+  <view class="glass p-24">
+    <view class="title">城市天气查询（和风天气）</view>
+    <view class="subtitle mt-24">输入城市（如：上海、深圳、Beijing）</view>
+    <view class="flex mt-24 wrap">
+      <input class="input" placeholder="请输入城市名称" bindinput="onCityInput" value="{{city}}" />
+      <button class="btn-primary m-16" bindtap="onSearch">查询</button>
+      <button class="btn-secondary m-16" bindtap="onMood">心情</button>
+    </view>
+  </view>
+
+  <!-- 加载/错误提示 -->
+  <view wx:if="{{loading}}" class="glass p-24 mt-24"><view>正在获取天气数据...</view></view>
+  <view wx:if="{{error}}" class="glass p-24 mt-24"><view>请求失败：{{error}}</view></view>
+
+  <!-- 当前天气卡片 -->
+  <view wx:if="{{now}}" class="glass p-24 mt-24">
+    <view class="card-title">当前天气 - {{displayCity}}</view>
+    <view class="mt-24 flex space-between">
+      <view>
+        <view>天气：{{now.text}}</view>
+        <view>温度：{{now.temp}}°C</view>
+        <view>体感：{{now.feelsLike}}°C</view>
+        <view>湿度：{{now.humidity}}%</view>
+      </view>
+      <view>
+        <view>风向：{{now.windDir}}｜风速：{{now.windSpeed}} km/h</view>
+        <view>风力等级：{{now.windScale}}</view>
+        <view wx:if="{{now.vis}}">能见度：{{now.vis}} km</view>
+        <view wx:if="{{!now.vis}}">能见度：暂无数据</view>
+      </view>
+    </view>
+    <view class="mt-24 small">数据更新时间：{{updateTime}}</view>
+  </view>
+
+  <!-- 空气质量卡片 -->
+  <view wx:if="{{air}}" class="glass p-24 mt-24">
+    <view class="card-title">空气质量（AQI）</view>
+    <view class="mt-24 flex space-between">
+      <view>
+        <view>AQI：{{air.aqi}}（{{air.category}}）</view>
+        <view>PM2.5：{{air.pm2p5}} μg/m³</view>
+        <view>PM10：{{air.pm10}} μg/m³</view>
+      </view>
+      <view>
+        <view>NO₂：{{air.no2}} μg/m³</view>
+        <view>SO₂：{{air.so2}} μg/m³</view>
+        <view>O₃：{{air.o3}} μg/m³</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 24小时预报（滚动列表） -->
+  <view wx:if="{{hourly.length}}" class="glass p-24 mt-24">
+    <view class="card-title">未来24小时</view>
+    <view class="mt-24">
+      <block wx:for="{{hourly}}" wx:key="fxTime">
+        <view class="flex space-between m-12">
+          <view class="small">{{item.fxTime}}</view>
+          <view>{{item.text}}｜{{item.temp}}°C｜风：{{item.windDir}} {{item.windScale}}级</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 7天预报 -->
+  <view wx:if="{{daily.length}}" class="glass p-24 mt-24">
+    <view class="card-title">未来7天</view>
+    <view class="mt-24">
+      <block wx:for="{{daily}}" wx:key="fxDate">
+        <view class="flex space-between m-12">
+          <view class="small">{{item.fxDate}}</view>
+          <view>{{item.textDay}}｜最高 {{item.tempMax}}°C｜最低 {{item.tempMin}}°C</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 生活指数（当天） -->
+  <view wx:if="{{indices.length}}" class="glass p-24 mt-24">
+    <view class="card-title">今日生活指数</view>
+    <view class="mt-24">
+      <block wx:for="{{indices}}" wx:key="type">
+        <view class="m-12">
+          <view>{{item.name}}：<text class="badge">{{item.category}}</text></view>
+          <view class="small">{{item.text}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

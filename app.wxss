@@ -1,0 +1,54 @@
+
+/* 全局样式 */
+page {
+  background: linear-gradient(135deg, #141729 0%, #243b55 100%);
+  min-height: 100vh;
+  color: #ffffff;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 16rpx;
+  box-shadow: 0 10rpx 30rpx rgba(0,0,0,0.35);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #4e54c8, #8f94fb);
+  color: #fff;
+  border: none;
+  border-radius: 12rpx;
+  padding: 16rpx 24rpx;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 12rpx;
+  padding: 16rpx 24rpx;
+}
+
+.input {
+  padding: 16rpx 24rpx;
+  border-radius: 12rpx;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+}
+
+.flex { display: flex; }
+.center { justify-content: center; align-items: center; }
+.space-between { justify-content: space-between; }
+.wrap { flex-wrap: wrap; }
+.m-12 { margin: 12rpx; }
+.m-16 { margin: 16rpx; }
+.mt-24 { margin-top: 24rpx; }
+.p-16 { padding: 16rpx; }
+.p-24 { padding: 24rpx; }
+.small { font-size: 24rpx; color: #d0d0e0; }
+.title { font-size: 36rpx; font-weight: 600; }
+.subtitle { font-size: 28rpx; color: #c8c8d8; }
+.card-title { font-size: 30rpx; font-weight: 600; }
+.badge { padding: 8rpx 12rpx; border-radius: 8rpx; background: rgba(255,255,255,0.15); }

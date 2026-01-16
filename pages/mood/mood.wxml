@@ -1,0 +1,72 @@
+<view class="p-24">
+  <view class="glass p-24">
+    <view class="title">心情助手（AI 大模型）</view>
+    <view class="subtitle mt-24">直连大模型（不走后端）示例：输入 Key 后即可调用</view>
+
+    <view class="mt-24">
+      <view class="card-title">1) 申请 API Key（通用思路）</view>
+      <view class="small mt-24">- 选择一个大模型服务商（如 OpenAI / Azure OpenAI / 阿里云百炼 / 火山方舟 / 智谱 / DeepSeek 等）</view>
+      <view class="small">- 注册账号 → 创建/开通模型服务 → 在控制台创建 API Key</view>
+      <view class="small">- 记录：API Base（接口地址）、Model（模型名）、API Key</view>
+      <view class="small">- 建议同时设置用量限制/白名单，避免泄露后被刷</view>
+    </view>
+
+    <view class="mt-24">
+      <view class="card-title">2) 为什么不要把 Key 写在小程序里</view>
+      <view class="small mt-24">提示：你现在选择“直连”方案，Key 会存到本机本地缓存并可能被抓包/泄露，仅适合学习测试。生产建议改为后端/云函数代理。</view>
+    </view>
+
+    <view class="mt-24">
+      <view class="card-title">3) 直连前置条件（很重要）</view>
+      <view class="small mt-24">- 你必须在小程序后台「开发 → 开发设置 → 服务器域名」把大模型域名加入 request 合法域名，否则会报域名不合法/无法请求</view>
+      <view class="small">- 推荐使用“OpenAI 兼容协议”的服务商；本示例请求路径为 /v1/chat/completions</view>
+    </view>
+
+    <view class="mt-24">
+      <view class="card-title">4) 配置（会保存到本机）</view>
+      <view class="mt-24">
+        <input class="input" placeholder="API Base URL（例如：https://generativelanguage.googleapis.com 或 https://api.openai.com）" bindinput="onBaseUrlInput" value="{{baseUrl}}" />
+      </view>
+      <view class="mt-24">
+        <input class="input" placeholder="Model（例如：gemini-1.5-flash / gpt-4o-mini / deepseek-chat）" bindinput="onModelInput" value="{{model}}" />
+      </view>
+      <view class="mt-24">
+        <input class="input" placeholder="API Key（只粘贴 Key 本体，例如 AIza...；不要粘贴整段日志/URL）" password="true" bindinput="onApiKeyInput" value="{{apiKey}}" />
+      </view>
+
+      <view class="flex mt-24 wrap">
+        <button class="btn-secondary m-16" bindtap="onListModels" loading="{{listing}}">获取可用模型</button>
+      </view>
+
+      <view wx:if="{{models.length}}" class="mt-24">
+        <view class="card-title">可用模型（点一下自动填入）</view>
+        <view class="mt-24">
+          <block wx:for="{{models}}" wx:key="name">
+            <view class="m-12">
+              <button class="btn-secondary" data-model="{{item.shortName}}" bindtap="onPickModel">{{item.shortName}}</button>
+              <view class="small mt-24" wx:if="{{item.displayName}}">{{item.displayName}}</view>
+            </view>
+          </block>
+        </view>
+      </view>
+
+      <view class="mt-24">
+        <textarea class="input" placeholder="例如：今天有点焦虑，想要建议…" auto-height="true" maxlength="500" bindinput="onTextInput" value="{{text}}"></textarea>
+      </view>
+
+      <view class="flex mt-24 wrap">
+        <button class="btn-primary m-16" bindtap="onAsk" loading="{{asking}}">问问 AI</button>
+        <button class="btn-secondary m-16" bindtap="onClearKey">清除 Key</button>
+      </view>
+      <view wx:if="{{answer}}" class="mt-24">
+        <view class="card-title">AI 回复</view>
+        <view class="mt-24">{{answer}}</view>
+      </view>
+      <view wx:if="{{error}}" class="mt-24 small">请求失败：{{error}}</view>
+    </view>
+
+    <view class="mt-24">
+      <button class="btn-secondary" bindtap="onShowCode">查看接入/替换代码示例</button>
+    </view>
+  </view>
+</view>

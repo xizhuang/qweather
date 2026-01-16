@@ -5,12 +5,9 @@
 
 ## 快速开始
 1. **获取 API Key & API Host**：注册和登录和风天气 → 控制台创建项目 → 创建凭据（选择 API KEY），并在“设置”页面查看你的 **API Host**（每个账号不同）。   参考：和风天气官方“开始使用”文档（包含帐号、项目、凭据与认证方式）以及社区教程（项目管理与创建凭据、API Host 位置）。【文档链接见下方参考】
-2. **配置密钥**：打开 `utils/qweather.js`，将：
-   ```js
-   apiHost: "https://YOUR_QWEATHER_API_HOST",
-   apiKey: "YOUR_QWEATHER_API_KEY"
-   ```
-   替换为你的真实值。
+2. **配置密钥（不要提交到 Git）**：
+   - 复制 `utils/qweather.config.example.js` 为 `utils/qweather.config.js`
+   - 在 `utils/qweather.config.js` 中填写你的 `apiHost` / `apiKey`
 3. **导入项目**：用微信开发者工具导入 `qweather-miniapp` 文件夹，运行即可。
 
 ## 目录结构

@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/mood/mood"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#1e1e2f",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "和风天气",
+    "backgroundColor": "#0f1020",
+    "backgroundTextStyle": "light"
+  }
+}

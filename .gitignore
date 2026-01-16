@@ -1,0 +1,23 @@
+# WeChat DevTools private config (local only)
+project.private.config.json
+
+# Local secrets/config overrides
+**/*secret*
+**/*.local.*
+.env*
+
+# Local QWeather config (contains apiHost/apiKey)
+utils/qweather.config.js
+
+# Node/Cloud Functions
+node_modules/
+cloudfunctions/**/node_modules/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Build output (if any)
+dist/
+out/

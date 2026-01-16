@@ -1,7 +1,7 @@
 {
     "miniprogramRoot": "",
     "description": "QWeather (和风天气) mini program",
-    "appid": "wx67213002b87fa2d6",
+    "appid": "",
     "setting": {
         "urlCheck": true,
         "es6": true,

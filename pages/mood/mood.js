@@ -99,17 +99,16 @@ Page({
       return;
     }
 
+    // 如果用户填写了配置，使用用户配置；否则使用云函数中的默认配置
     const baseUrl = (this.data.baseUrl || '').trim();
     const model = (this.data.model || '').trim();
     const apiKey = (this.data.apiKey || '').trim();
-    if (!baseUrl || !model || !apiKey) {
-      wx.showToast({ title: '先填写 Base URL / Model / Key', icon: 'none' });
-      return;
-    }
+    
+    const overrideConfig = (baseUrl && model && apiKey) ? { baseUrl, model, apiKey } : null;
 
     this.setData({ asking: true, error: '', answer: '' });
     try {
-      const answer = await askMood(text, { baseUrl, model, apiKey });
+      const answer = await askMood(text, overrideConfig);
       this.setData({ answer: answer || '（没有拿到模型返回）', asking: false });
     } catch (err) {
       console.error(err);
@@ -119,27 +118,28 @@ Page({
 
   onShowCode() {
     const tips = [
-      '直连方案（不走后端）如何配置：',
-      '1) 申请 API Key（在服务商控制台创建）',
-      '2) 在小程序后台把大模型域名加入 request 合法域名',
-      '3) Base URL 通常是 https://xxx.com 或 https://xxx.com/v1',
-      '4) 本项目支持两类：',
-      '   - Gemini：POST /v1beta/models/{model}:generateContent?key=KEY',
-      '   - OpenAI 兼容：POST /v1/chat/completions（Bearer KEY）',
+      '云函数配置说明：',
       '',
-      'Gemini 示例：',
-      '- Base URL: https://generativelanguage.googleapis.com（不要带 /v1 或 /v1beta）',
-      '- Model: gemini-1.5-flash（或 gemini-1.5-pro 等）',
+      '1. 配置位置：',
+      '   cloudfunctions/callLLM/index.js',
+      '   修改 LLM_CONFIG 对象',
       '',
-      '代码位置：utils/llm.js',
-      '- 会从本机缓存读取 baseUrl/model/apiKey',
-      '- 返回 choices[0].message.content 作为最终文本',
+      '2. 支持的模型：',
+      '   - OpenAI / DeepSeek / 阿里通义等',
+      '   - Google Gemini',
       '',
-      '安全提醒：直连会暴露 Key，仅建议本地学习。'
+      '3. 更新 API Key：',
+      '   - 方式一：直接修改代码后重新部署',
+      '   - 方式二：使用云环境变量（推荐）',
+      '',
+      '4. 查看详细文档：',
+      '   cloudfunctions/README.md',
+      '',
+      '安全提示：API Key 保存在云端，安全可靠！'
     ].join('\n');
 
     wx.showModal({
-      title: '接入说明（关键点）',
+      title: '云函数配置',
       content: tips,
       showCancel: false,
       confirmText: '知道了'

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "openapi": []
+  },
+  "env": {
+    "LLM_BASE_URL": "",
+    "LLM_MODEL": "",
+    "LLM_API_KEY": ""
+  },
+  "timeout": 60
+}

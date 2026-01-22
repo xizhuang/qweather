@@ -1,5 +1,6 @@
 {
     "miniprogramRoot": "",
+    "cloudfunctionRoot": "cloudfunctions/",
     "description": "QWeather (和风天气) mini program",
     "appid": "",
     "setting": {
